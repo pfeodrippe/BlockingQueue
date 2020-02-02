@@ -1,0 +1,4 @@
+{
+    "tlaplus.java.options": "-classpath CommunityModules.jar",
+    "tlaplus.java.home": "/usr/local/openjdk-8/"
+}

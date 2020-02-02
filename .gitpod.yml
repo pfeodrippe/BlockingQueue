@@ -1,3 +1,5 @@
+image: apalache/mc
+
 vscode:
   extensions:
     - alygin.vscode-tlaplus@1.5.0:4/HF8Om4SqXKpiDEBubEzw==
@@ -5,3 +7,4 @@ vscode:
 tasks:
   - init: git config --global alias.slog 'log --pretty=oneline --abbrev-commit'
   - init: git config --global alias.co checkout
+  - command: export PATH=/usr/local/openjdk-8/bin/:/opt/apalache/bin/:$PATH
