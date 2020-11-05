@@ -8,9 +8,9 @@ CONSTANTS Producers,   (* the (nonempty) set of producers                       
           BufCapacity  (* the maximum number of messages in the bounded buffer  *)
 
 ConstInit ==
-  /\ Producers \in (SUBSET {"p1","p2","p3","p4"} \ {({} <: {STRING})})
-  /\ Consumers \in (SUBSET {"c1","c2","c3"} \ {({} <: {STRING})})
-  /\ BufCapacity = 1
+  /\ Producers = {"p1","p2","p3","p4"} \*\in (SUBSET {"p1","p2","p3","p4"} \ {({} <: {STRING})})
+  /\ Consumers = {"c1","c2","c3"} \*\in (SUBSET {"c1","c2","c3"} \ {({} <: {STRING})})
+  /\ BufCapacity = 3\*1
 
 ASSUME Assumption ==
        /\ Producers # {}                      (* at least one producer *)
@@ -71,6 +71,9 @@ TypeInv == /\ buffer \in Seq(Producers)
 
 (* No Deadlock *)
 Invariant == waitSet # (Producers \cup Consumers)
+
+P4 == {"p1","p2","p3","p4"}
+C3 == {"c1","c2","c3"}
 
 =============================================================================
 
@@ -226,3 +229,125 @@ user	19m46,938s
 sys	0m10,676s
 
 
+-----------------------------------------------------
+
+
+markus@avocado:~/src/TLA/_specs/models/tutorials/BlockingQueueTLA(apalache)$ /opt/apalache/bin/apalache-mc --cinit=ConstInit --init=Init --next=Next --length=50 check BlockingQueue.tla
+# Tool home: /opt/apalache
+# Package:   /opt/apalache/mod-distribution/target/apalache-pkg-0.7.2-RELEASE-full.jar
+# JVM args: -Xmx4096m -Djava.library.path=/usr/lib/x86_64-linux-gnu/jni/  -DTLA-Library=
+#
+# APALACHE version 0.7.2-RELEASE build v0.7.1-5-g5b85083
+#
+# WARNING: This tool is in the experimental stage.
+#          Please report bugs at: [https://github.com/informalsystems/apalache/issues]
+
+Checker options: filename=BlockingQueue.tla, init=Init, next=Next, inv= I@17:26:56.719
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/opt/apalache/mod-distribution/target/apalache-pkg-0.7.2-RELEASE-full.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+PASS #0: SanyParser                                               I@17:26:57.083
+Parsing file /home/markus/src/TLA/_specs/models/tutorials/BlockingQueueTLA/BlockingQueue.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/Sequences.tla
+Parsing file /tmp/FiniteSets.tla
+PASS #1: ConfigurationPass                                        I@17:26:57.433
+  > Loading TLC configuration from BlockingQueue.cfg              I@17:26:57.435
+  > Init operator is set both in BlockingQueue.cfg and via --init option; using the latter W@17:26:57.514
+  > Next operator is set both in BlockingQueue.cfg and via --next option; using the latter W@17:26:57.515
+  > Replaced CONSTANT Producers                                   I@17:26:57.518
+  > Replaced CONSTANT BufCapacity                                 I@17:26:57.519
+  > Replaced CONSTANT Consumers                                   I@17:26:57.519
+PASS #2: UnrollPass                                               I@17:26:57.584
+  > Unroller                                                      I@17:26:57.587
+PASS #3: InlinePass                                               I@17:26:57.622
+  > InlinerOfUserOper                                             I@17:26:57.637
+  > LetInExpander                                                 I@17:26:57.655
+PASS #4: PrimingPass                                              I@17:26:57.687
+  > Introducing ConstInitPrimed for ConstInit'                    I@17:26:57.693
+  > Introducing InitPrimed for Init'                              I@17:26:57.694
+PASS #5: VCGen                                                    I@17:26:57.724
+  > Producing verification conditions from the invariant Invariant I@17:26:57.725
+  > VCGen produced 1 verification condition(s)                    I@17:26:57.728
+PASS #6: PreprocessingPass                                        I@17:26:57.757
+  > Before preprocessing: unique renaming                         I@17:26:57.757
+ > Applying standard transformations:                             I@17:26:57.766
+  > Desugarer                                                     I@17:26:57.767
+  > UniqueRenamer                                                 I@17:26:57.777
+  > Normalizer                                                    I@17:26:57.826
+  > Keramelizer                                                   I@17:26:57.831
+  > After preprocessing: UniqueRenamer                            I@17:26:57.859
+PASS #7: TransitionFinderPass                                     I@17:26:57.908
+  > Found 1 initializing transitions                              I@17:26:58.007
+  > Found 6 transitions                                           I@17:26:58.069
+  > Found constant initializer ConstInit                          I@17:26:58.069
+  > Applying unique renaming                                      I@17:26:58.071
+PASS #8: OptimizationPass                                         I@17:26:58.115
+ > Applying optimizations:                                        I@17:26:58.120
+  > ConstSimplifier                                               I@17:26:58.121
+  > ExprOptimizer                                                 I@17:26:58.127
+  > ConstSimplifier                                               I@17:26:58.134
+PASS #9: AnalysisPass                                             I@17:26:58.160
+ > Marking skolemizable existentials and sets to be expanded...   I@17:26:58.163
+  > SkolemizationMarker                                           I@17:26:58.164
+  > ExpansionMarker                                               I@17:26:58.167
+ > Running analyzers...                                           I@17:26:58.175
+  > Introduced expression grades                                  I@17:26:58.198
+  > Introduced 3 formula hints                                    I@17:26:58.199
+PASS #10: BoundedChecker                                          I@17:26:58.200
+Initializing CONSTANTS with the provided operator                 I@17:26:58.284
+Step 0, level 0: checking if 1 transition(s) are enabled and violate the invariant I@17:26:58.334
+Step 0, level 1: collecting 1 enabled transition(s)               I@17:26:58.397
+Step 1, level 1: checking if 6 transition(s) are enabled and violate the invariant I@17:26:58.408
+Step 1, level 2: collecting 2 enabled transition(s)               I@17:26:58.616
+Step 2, level 2: checking if 6 transition(s) are enabled and violate the invariant I@17:26:58.692
+Step 2, level 3: collecting 4 enabled transition(s)               I@17:26:58.839
+Step 3, level 3: checking if 6 transition(s) are enabled and violate the invariant I@17:26:58.922
+Step 3, level 4: collecting 4 enabled transition(s)               I@17:26:59.055
+Step 4, level 4: checking if 6 transition(s) are enabled and violate the invariant I@17:26:59.127
+Step 4, level 5: collecting 6 enabled transition(s)               I@17:26:59.282
+Step 5, level 5: checking if 6 transition(s) are enabled and violate the invariant I@17:26:59.385
+Step 5, level 6: collecting 6 enabled transition(s)               I@17:26:59.558
+Step 6, level 6: checking if 6 transition(s) are enabled and violate the invariant I@17:26:59.640
+Step 6, level 7: collecting 6 enabled transition(s)               I@17:26:59.868
+Step 7, level 7: checking if 6 transition(s) are enabled and violate the invariant I@17:26:59.965
+Step 7, level 8: collecting 6 enabled transition(s)               I@17:27:00.226
+Step 8, level 8: checking if 6 transition(s) are enabled and violate the invariant I@17:27:00.303
+Step 8, level 9: collecting 6 enabled transition(s)               I@17:27:00.687
+Step 9, level 9: checking if 6 transition(s) are enabled and violate the invariant I@17:27:00.749
+Step 9, level 10: collecting 6 enabled transition(s)              I@17:27:01.363
+Step 10, level 10: checking if 6 transition(s) are enabled and violate the invariant I@17:27:01.440
+Step 10, level 11: collecting 6 enabled transition(s)             I@17:27:02.734
+Step 11, level 11: checking if 6 transition(s) are enabled and violate the invariant I@17:27:02.815
+Step 11, level 12: collecting 6 enabled transition(s)             I@17:27:04.777
+Step 12, level 12: checking if 6 transition(s) are enabled and violate the invariant I@17:27:04.856
+Step 12, level 13: collecting 6 enabled transition(s)             I@17:27:09.668
+Step 13, level 13: checking if 6 transition(s) are enabled and violate the invariant I@17:27:09.744
+Step 13, level 14: collecting 6 enabled transition(s)             I@17:27:15.065
+Step 14, level 14: checking if 6 transition(s) are enabled and violate the invariant I@17:27:15.156
+Step 14, level 15: collecting 6 enabled transition(s)             I@17:27:23.764
+Step 15, level 15: checking if 6 transition(s) are enabled and violate the invariant I@17:27:23.837
+Step 15, level 16: collecting 6 enabled transition(s)             I@17:27:34.767
+Step 16, level 16: checking if 6 transition(s) are enabled and violate the invariant I@17:27:34.844
+Step 16, level 17: collecting 6 enabled transition(s)             I@17:28:02.933
+Step 17, level 17: checking if 6 transition(s) are enabled and violate the invariant I@17:28:03.022
+Step 17, level 18: collecting 6 enabled transition(s)             I@17:28:35.128
+Step 18, level 18: checking if 6 transition(s) are enabled and violate the invariant I@17:28:35.244
+Step 18, level 19: collecting 6 enabled transition(s)             I@17:29:27.138
+Step 19, level 19: checking if 6 transition(s) are enabled and violate the invariant I@17:29:27.228
+Step 19, level 20: collecting 6 enabled transition(s)             I@17:33:10.935
+Step 20, level 20: checking if 6 transition(s) are enabled and violate the invariant I@17:33:11.032
+Step 20, level 21: collecting 6 enabled transition(s)             I@17:36:17.129
+Step 21, level 21: checking if 6 transition(s) are enabled and violate the invariant I@17:36:17.225
+Step 21, level 22: collecting 6 enabled transition(s)             I@17:41:30.373
+Step 22, level 22: checking if 6 transition(s) are enabled and violate the invariant I@17:41:30.518
+Step 22, level 23: collecting 6 enabled transition(s)             I@17:52:05.921
+Step 23, level 23: checking if 6 transition(s) are enabled and violate the invariant I@17:52:06.023
+Step 23, level 24: collecting 6 enabled transition(s)             I@18:11:29.695
+Step 24, level 24: checking if 6 transition(s) are enabled and violate the invariant I@18:11:29.792
+Step 24, level 25: collecting 6 enabled transition(s)             I@18:46:24.304
+Step 25, level 25: checking if 6 transition(s) are enabled and violate the invariant I@18:46:24.401
+^CPremature termination requested. Killing apalache-mc (pid 136863)
+Unable find the source of the problematic expression              E@19:46:22.173
