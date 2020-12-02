@@ -1,4 +1,6 @@
 {
+  "image": "apalache/mc",
+  
   // Install TLA+ and GraphViz extension
   "extensions": [
     "alygin.vscode-tlaplus",
