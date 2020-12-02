@@ -1,4 +1,6 @@
 {
+  "image": "apalache/mc",
+  
   // Install TLA+ and GraphViz extension
   "extensions": [
     "alygin.vscode-tlaplus",
@@ -12,5 +14,5 @@
   },
 
   // Install htop and graphviz
-  "postCreateCommand": "sudo apt-get install -y graphviz htop"
+  "postCreateCommand": "apt-get install -y graphviz htop"
 }
