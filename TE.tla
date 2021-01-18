@@ -2,18 +2,19 @@
 ---- MODULE TE ----
 EXTENDS TTrace, TLC
 
-VARIABLES traceExpression_1
+VARIABLES _traceExpression_1
 
+\* INIT definition @teBehaviorInit:0
 _TEInit ==
     /\ _SpecTEInit
-    /\ traceExpression_1 = (buffer \o << 2, 21 >>)
+    /\ _traceExpression_1 = (buffer \o << 2, 21 >>)
 
 ----
-
+\* NEXT definition @teBehaviorNext:0
 _TENext ==
     /\ _SpecTENext
-    /\ traceExpression_1' = (buffer' \o << 2, 21 >>)
+    /\ _traceExpression_1' = (buffer \o << 2, 21 >>)
 
 ----
-\* Generated on Mon Jan 18 13:08:46 BRT 2021
+\* Generated on Mon Jan 18 15:54:17 BRT 2021
 =============================================================================
