@@ -9,7 +9,9 @@ java -cp /Users/paulo.feodrippe/dev/tlaplus/tlatools/org.lamport.tlatools/dist/t
     echo "p3 = p3"
     echo "p4 = p4"
 ) TE.cfg > /tmp/TE.cfg && \
-            cp /tmp/TE.cfg TE.cfg && \
-            rm TTrace.tla && \
-            rm TTrace.cfg && \
-            java -cp /Users/paulo.feodrippe/dev/tlaplus/tlatools/org.lamport.tlatools/dist/tla2tools.jar:CommunityModules.jar -XX:+UseParallelGC tlc2.TLC -noGenerateSpecTE -tool TE.tla -config TE.cfg
+        cp /tmp/TE.cfg TE.cfg && \
+        sed -i "..." 's/TTraceExpression//' TE.cfg && \
+        sed -i"..." 's/ALIAS//' TE.cfg && \
+        rm TTrace.tla && \
+        rm TTrace.cfg && \
+        java -cp /Users/paulo.feodrippe/dev/tlaplus/tlatools/org.lamport.tlatools/dist/tla2tools.jar:CommunityModules.jar -XX:+UseParallelGC tlc2.TLC -noGenerateSpecTE -tool TE.tla -config TE.cfg
