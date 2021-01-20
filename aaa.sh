@@ -1,3 +1,5 @@
+# java -cp /Users/paulo.feodrippe/dev/tlaplus/tlatools/org.lamport.tlatools/dist/tla2tools.jar -XX:+UseParallelGC tlc2.TLC -generateSpecTE BlockingQueue.tla -tool -modelcheck -coverage 1 -config BlockingQueue.cfg > BlockingQueue.out
+
 java -cp /Users/paulo.feodrippe/dev/tlaplus/tlatools/org.lamport.tlatools/dist/tla2tools.jar tlc2.TraceExplorer -overwrite -traceExpressions -expressionsFile eita.out BlockingQueue ; \
     cat TE.tla TTrace.tla > Eita.tla && \
         mv Eita.tla TE.tla && \
